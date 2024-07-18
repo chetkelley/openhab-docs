@@ -154,12 +154,12 @@ timerId = ruleUID+'_timer';
 var lightsOut = function() {
   console.info('No more motion, turning off the light');
   items.getItem('FrontPorchLight').sendCommand('OFF');
-  cache.put(timerId, null);
+  cache.private.put(timerId, null);
 };
 
-var timer = cache.get(timerId);
+var timer = cache.private.get(timerId);
 if(!timer) {
-    cache.put(timerId, ScriptExecution.createTimer(time.ZonedDateTime.now().plusMinutes(30), lightsOut));
+    cache.private.put(timerId, actions.ScriptExecution.createTimer(time.ZonedDateTime.now().plusMinutes(30), lightsOut));
 }
 else {
     timer.reschedule(time.ZonedDateTime.now());
